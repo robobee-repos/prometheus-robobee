@@ -199,7 +199,7 @@ spec:
                               that this pod should be co-located (affinity) or not
                               co-located (anti-affinity) with, where co-located is
                               defined as running on a node whose value of the label
-                              with key <topologyKey> matches that of any node on which
+                              with key \<topologyKey> matches that of any node on which
                               a pod of the set of pods is running
                             properties:
                               labelSelector:
@@ -291,7 +291,7 @@ spec:
                           the labelSelector relative to the given namespace(s)) that
                           this pod should be co-located (affinity) or not co-located
                           (anti-affinity) with, where co-located is defined as running
-                          on a node whose value of the label with key <topologyKey>
+                          on a node whose value of the label with key \<topologyKey>
                           matches that of any node on which a pod of the set of pods
                           is running
                         properties:
@@ -384,7 +384,7 @@ spec:
                               that this pod should be co-located (affinity) or not
                               co-located (anti-affinity) with, where co-located is
                               defined as running on a node whose value of the label
-                              with key <topologyKey> matches that of any node on which
+                              with key \<topologyKey> matches that of any node on which
                               a pod of the set of pods is running
                             properties:
                               labelSelector:
@@ -476,7 +476,7 @@ spec:
                           the labelSelector relative to the given namespace(s)) that
                           this pod should be co-located (affinity) or not co-located
                           (anti-affinity) with, where co-located is defined as running
-                          on a node whose value of the label with key <topologyKey>
+                          on a node whose value of the label with key \<topologyKey>
                           matches that of any node on which a pod of the set of pods
                           is running
                         properties:
@@ -1025,7 +1025,7 @@ spec:
                       properties:
                         containerPort:
                           description: Number of port to expose on the pod's IP address.
-                            This must be a valid port number, 0 < x < 65536.
+                            This must be a valid port number, 0 \< x \< 65536.
                           format: int32
                           type: integer
                         hostIP:
@@ -1033,7 +1033,7 @@ spec:
                           type: string
                         hostPort:
                           description: Number of port to expose on the host. If specified,
-                            this must be a valid port number, 0 < x < 65536. If HostNetwork
+                            this must be a valid port number, 0 \< x \< 65536. If HostNetwork
                             is specified, this must match ContainerPort. Most containers
                             do not need this.
                           format: int32
@@ -1817,7 +1817,7 @@ spec:
                     items:
                       description: 'RelabelConfig allows dynamic rewriting of the
                         label set, being applied to samples before ingestion. It defines
-                        `<metric_relabel_configs>`-section of Prometheus configuration.
+                        `\<metric_relabel_configs>`-section of Prometheus configuration.
                         More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs'
                       properties:
                         action:
@@ -1934,7 +1934,7 @@ spec:
             secrets:
               description: Secrets is a list of Secrets in the same namespace as the
                 Prometheus object, which shall be mounted into the Prometheus Pods.
-                The Secrets are mounted into /etc/prometheus/secrets/<secret-name>.
+                The Secrets are mounted into /etc/prometheus/secrets/\<secret-name>.
                 Secrets changes after initial creation of a Prometheus object are
                 not reflected in the running Pods. To change the secrets mounted into
                 the Prometheus Pods, the object must be deleted and recreated with
@@ -2614,8 +2614,8 @@ spec:
               description: If specified, the pod's tolerations.
               items:
                 description: The pod this Toleration is attached to tolerates any
-                  taint that matches the triple <key,value,effect> using the matching
-                  operator <operator>.
+                  taint that matches the triple \<key,value,effect> using the matching
+                  operator \<operator>.
                 properties:
                   effect:
                     description: Effect indicates the taint effect to match. Empty
