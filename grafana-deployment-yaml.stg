@@ -53,6 +53,7 @@ spec:
         ports:
         - containerPort: 3000
           name: http
+        <resourcesGroup(parent, vars, vars.prometheusOperator.limits, vars.prometheusOperator.requests)>
         volumeMounts:
         - mountPath: /var/lib/grafana
           name: grafana-storage
@@ -66,7 +67,6 @@ spec:
         - mountPath: /grafana-dashboard-definitions/0
           name: grafana-dashboard-definitions
           readOnly: false
-      <resourcesGroup(parent, vars, vars.prometheusOperator.limits, vars.prometheusOperator.requests)>
       securityContext:
         runAsNonRoot: true
         runAsUser: 65534

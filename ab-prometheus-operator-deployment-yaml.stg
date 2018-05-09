@@ -53,13 +53,13 @@ spec:
         ports:
         - containerPort: 8080
           name: http
+        <resourcesGroup(parent, vars, vars.prometheusOperator.limits, vars.prometheusOperator.requests)>
       nodeSelector:
         beta.kubernetes.io/os: linux
       securityContext:
         runAsNonRoot: true
         runAsUser: 65534
       serviceAccountName: prometheus-operator
-      <resourcesGroup(parent, vars, vars.prometheusOperator.limits, vars.prometheusOperator.requests)>
 <tolerationMasterGroup(parent, vars, vars.prometheusOperator.allowOnMaster)>
 <tolerationsGroup(parent, vars, vars.prometheusOperator.tolerations, vars.prometheusOperator.allowOnMaster)>
 <affinitiesGroup(parent, vars, vars.prometheusOperator.affinity)>
