@@ -1,0 +1,25 @@
+/*
+ *
+ */
+
+ab-prometheus-operator-service-yaml(parent, vars) ::= <<
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: prometheus-operator
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+    kubernetes.io/name: "prometheus-operator"
+  name: prometheus-operator
+  namespace: monitoring
+spec:
+  clusterIP: None
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+  selector:
+    k8s-app: prometheus-operator
+
+>>

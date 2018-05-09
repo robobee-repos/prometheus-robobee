@@ -1,0 +1,29 @@
+/*
+ *
+ */
+
+grafana-dashboardSources-yaml(parent, vars) ::= <<
+apiVersion: v1
+data:
+  dashboards.yaml: |-
+    [
+        {
+            "folder": "",
+            "name": "0",
+            "options": {
+                "path": "/grafana-dashboard-definitions/0"
+            },
+            "org_id": 1,
+            "type": "file"
+        }
+    ]
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  namespace: monitoring
+  labels:
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+    kubernetes.io/name: "prometheus-operator"
+
+>>

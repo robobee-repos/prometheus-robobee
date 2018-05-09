@@ -1,0 +1,27 @@
+/*
+ *
+ */
+
+prometheus-serviceMonitorPrometheus-yaml(parent, vars) ::= <<
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    k8s-app: prometheus
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+    kubernetes.io/name: "prometheus-operator"
+  name: prometheus
+  namespace: monitoring
+spec:
+  endpoints:
+  - interval: 30s
+    port: web
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  selector:
+    matchLabels:
+      prometheus: k8s
+
+>>

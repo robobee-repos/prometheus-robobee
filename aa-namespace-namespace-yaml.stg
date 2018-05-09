@@ -1,0 +1,15 @@
+/*
+ *
+ */
+
+aa-namespace-namespace-yaml(parent, vars) ::= <<
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: EnsureExists
+    kubernetes.io/name: "prometheus-operator"
+
+>>

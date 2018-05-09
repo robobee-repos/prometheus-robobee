@@ -1,0 +1,27 @@
+/*
+ *
+ */
+
+alertmanager-serviceMonitor-yaml(parent, vars) ::= <<
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    k8s-app: alertmanager
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+    kubernetes.io/name: "prometheus-operator"
+  name: alertmanager
+  namespace: monitoring
+spec:
+  endpoints:
+  - interval: 30s
+    port: web
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  selector:
+    matchLabels:
+      alertmanager: main
+
+>>
