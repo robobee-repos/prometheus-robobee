@@ -1,6 +1,27 @@
 /*
+ * Mandatory:
  *
+ * vars.prometheusOperator.image.name
+ * vars.prometheusOperator.image.version
+ *
+ * Optional:
+ * 
+ * vars.prometheusOperator.limits.cpu
+ * vars.prometheusOperator.limits.memory
+ * vars.prometheusOperator.requests.cpu
+ * vars.prometheusOperator.requests.memory
+ * vars.prometheusOperator.affinity.key
+ * vars.prometheusOperator.affinity.name
+ * vars.prometheusOperator.affinity.required
+ * vars.prometheusOperator.allowOnMaster
+ * vars.prometheusOperator.tolerations[].key
+ * vars.prometheusOperator.tolerations[].effect
+ * vars.prometheusOperator.tolerations[].value
  */
+
+import "_affinities.stg"
+import "_resources.stg"
+import "_tolerations.stg"
 
 ab-prometheus-operator-deployment-yaml(parent, vars) ::= <<
 apiVersion: apps/v1beta2
@@ -32,18 +53,15 @@ spec:
         ports:
         - containerPort: 8080
           name: http
-        resources:
-          limits:
-            cpu: 200m
-            memory: 100Mi
-          requests:
-            cpu: 100m
-            memory: 50Mi
       nodeSelector:
         beta.kubernetes.io/os: linux
       securityContext:
         runAsNonRoot: true
         runAsUser: 65534
       serviceAccountName: prometheus-operator
+  <resourcesGroup(parent, vars, vars.prometheusOperator.limits, vars.prometheusOperator.requests)>
+<tolerationMasterGroup(parent, vars, vars.prometheusOperator.allowOnMaster)>
+<tolerationsGroup(parent, vars, vars.prometheusOperator.tolerations, vars.prometheusOperator.allowOnMaster)>
+<affinitiesGroup(parent, vars, vars.prometheusOperator.affinity)>
 
 >>

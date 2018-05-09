@@ -1,4 +1,14 @@
 /*
+ * Mandatory:
+ *
+ * vars.alaertManager.replicas
+ */
+
+import "_affinities.stg"
+import "_resources.stg"
+import "_tolerations.stg"
+
+/*
  *
  */
 
@@ -17,7 +27,7 @@ spec:
   baseImage: quay.io/prometheus/alertmanager
   nodeSelector:
     beta.kubernetes.io/os: linux
-  replicas: 3
+  replicas: <vars.alaertManager.replicas>
   serviceAccountName: alertmanager-main
   version: v0.14.0
 

@@ -1,7 +1,30 @@
 /*
+ * Mandatory:
  *
+ * vars.prometheus.replicas
+ *
+ * Optional:
+ * 
+ * vars.prometheus.limits.cpu
+ * vars.prometheus.limits.memory
+ * vars.prometheus.requests.cpu
+ * vars.prometheus.requests.memory
+ * vars.prometheus.affinity.key
+ * vars.prometheus.affinity.name
+ * vars.prometheus.affinity.required
+ * vars.prometheus.allowOnMaster
+ * vars.prometheus.tolerations[].key
+ * vars.prometheus.tolerations[].effect
+ * vars.prometheus.tolerations[].value
  */
 
+import "_affinities.stg"
+import "_resources.stg"
+import "_tolerations.stg"
+
+/*
+ *
+ */
 prometheus-prometheus-yaml(parent, vars) ::= <<
 apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
@@ -22,10 +45,10 @@ spec:
   baseImage: quay.io/prometheus/prometheus
   nodeSelector:
     beta.kubernetes.io/os: linux
-  replicas: 2
+  replicas: <vars.prometheus.replicas>
   resources:
     requests:
-      memory: 400Mi
+      memory: <vars.prometheus.requests.memory>
   ruleSelector:
     matchLabels:
       prometheus: k8s

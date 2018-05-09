@@ -1,7 +1,31 @@
 /*
+ * Mandatory:
  *
+ * vars.kubeStateMetrics.image.name
+ * vars.kubeStateMetrics.image.version
+ *
+ * Optional:
+ * 
+ * vars.kubeStateMetrics.limits.cpu
+ * vars.kubeStateMetrics.limits.memory
+ * vars.kubeStateMetrics.requests.cpu
+ * vars.kubeStateMetrics.requests.memory
+ * vars.kubeStateMetrics.affinity.key
+ * vars.kubeStateMetrics.affinity.name
+ * vars.kubeStateMetrics.affinity.required
+ * vars.kubeStateMetrics.allowOnMaster
+ * vars.kubeStateMetrics.tolerations[].key
+ * vars.kubeStateMetrics.tolerations[].effect
+ * vars.kubeStateMetrics.tolerations[].value
  */
 
+import "_affinities.stg"
+import "_resources.stg"
+import "_tolerations.stg"
+
+/*
+ *
+ */
 kube-state-metrics-deployment-yaml(parent, vars) ::= <<
 apiVersion: apps/v1beta2
 kind: Deployment
@@ -103,5 +127,8 @@ spec:
         runAsNonRoot: true
         runAsUser: 65534
       serviceAccountName: kube-state-metrics
+<tolerationMasterGroup(parent, vars, vars.kubeStateMetrics.allowOnMaster)>
+<tolerationsGroup(parent, vars, vars.kubeStateMetrics.tolerations, vars.kubeStateMetrics.allowOnMaster)>
+<affinitiesGroup(parent, vars, vars.kubeStateMetrics.affinity)>
 
 >>

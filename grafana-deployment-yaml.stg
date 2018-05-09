@@ -1,7 +1,31 @@
 /*
+ * Mandatory:
  *
+ * vars.grafana.image.name
+ * vars.grafana.image.version
+ *
+ * Optional:
+ * 
+ * vars.grafana.limits.cpu
+ * vars.grafana.limits.memory
+ * vars.grafana.requests.cpu
+ * vars.grafana.requests.memory
+ * vars.grafana.affinity.key
+ * vars.grafana.affinity.name
+ * vars.grafana.affinity.required
+ * vars.grafana.allowOnMaster
+ * vars.grafana.tolerations[].key
+ * vars.grafana.tolerations[].effect
+ * vars.grafana.tolerations[].value
  */
 
+import "_affinities.stg"
+import "_resources.stg"
+import "_tolerations.stg"
+
+/*
+ *
+ */
 grafana-deployment-yaml(parent, vars) ::= <<
 apiVersion: apps/v1beta2
 kind: Deployment
@@ -29,13 +53,6 @@ spec:
         ports:
         - containerPort: 3000
           name: http
-        resources:
-          limits:
-            cpu: 200m
-            memory: 200Mi
-          requests:
-            cpu: 100m
-            memory: 100Mi
         volumeMounts:
         - mountPath: /var/lib/grafana
           name: grafana-storage
@@ -49,6 +66,7 @@ spec:
         - mountPath: /grafana-dashboard-definitions/0
           name: grafana-dashboard-definitions
           readOnly: false
+  <resourcesGroup(parent, vars, vars.prometheusOperator.limits, vars.prometheusOperator.requests)>
       securityContext:
         runAsNonRoot: true
         runAsUser: 65534
@@ -65,5 +83,8 @@ spec:
       - configMap:
           name: grafana-dashboard-definitions
         name: grafana-dashboard-definitions
+<tolerationMasterGroup(parent, vars, vars.prometheusOperator.allowOnMaster)>
+<tolerationsGroup(parent, vars, vars.prometheusOperator.tolerations, vars.prometheusOperator.allowOnMaster)>
+<affinitiesGroup(parent, vars, vars.prometheusOperator.affinity)>
 
 >>

@@ -1,0 +1,47 @@
+/*
+ * Adds tolerations section so the pod can run on the master nodes.
+ */
+tolerationMasterGroup(parent, vars, allowOnMaster) ::= <<
+<if(allowOnMaster)>
+      tolerations:
+      <tolerationMasterEntry(parent, vars, allowOnMaster)>
+<endif>
+>>
+
+/*
+ * Adds toleration entry so the pod can run on the master nodes.
+ */
+tolerationMasterEntry(parent, vars, allowOnMaster) ::= <<
+<if(allowOnMaster)>
+- effect: NoSchedule
+  key: node-role.kubernetes.io/master
+  operator: Equal
+<endif>
+>>
+
+/*
+ * Adds tolerations.
+ *
+ * Mandatory:
+ *
+ * tolerations[].key
+ * tolerations[].effect
+ * tolerations[].value
+ */
+tolerationsGroup(parent, vars, tolerations, allowOnMaster) ::= <<
+<tolerationsHeader(parent, vars, tolerations, allowOnMaster)>
+  <tolerations:tolerationsEntry();separator="\n">
+>>
+
+tolerationsHeader(parent, vars, tolerations, allowOnMaster) ::= <%
+<if(!allowOnMaster&&tolerations)>
+tolerations:
+<endif>
+%>
+
+tolerationsEntry(toleration) ::= <<
+- effect: <toleration.effect>
+  key: <toleration.key>
+  operator: <if(toleration.value)>Equal<else>Exists<endif><if(toleration.value)>
+  value: <toleration.value><endif>
+>>
