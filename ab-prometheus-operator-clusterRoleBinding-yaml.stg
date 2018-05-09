@@ -2,7 +2,7 @@
  *
  */
 
-ab-prometheus-operator-clusterRole-yaml(parent, vars) ::= <<
+ab-prometheus-operator-clusterRoleBinding-yaml(parent, vars) ::= <<
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
