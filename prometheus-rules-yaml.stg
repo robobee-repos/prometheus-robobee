@@ -91,7 +91,7 @@ data:
     \     )\n    \"record\": \"node:node_net_saturation:sum_irate\"\n- \"name\": \"kubernetes-apps\"\n
     \ \"rules\": \n  - \"alert\": \"KubePodCrashLooping\"\n    \"annotations\": \n
     \     \"message\": \"{{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container
-    }}) is restarting {{ printf \\\"%.2f\\\" $value }} / second\"\n    \"expr\": |\n
+    }}) is restarting {{ printf \\\\"%.2f\\\\" $value }} / second\"\n    \"expr\": |\n
     \     rate(kube_pod_container_status_restarts_total{job=\"kube-state-metrics\"}[15m])
     > 0\n    \"for\": \"1h\"\n    \"labels\": \n      \"severity\": \"critical\"\n
     \ - \"alert\": \"KubePodNotReady\"\n    \"annotations\": \n      \"message\":
@@ -128,7 +128,7 @@ data:
     \     sum(kube_resourcequota{job=\"kube-state-metrics\", type=\"hard\", resource=\"requests.memory\"})\n
     \       /\n      sum(node_memory_MemTotal{job=\"node-exporter\"})\n        > 1.5\n
     \   \"for\": \"5m\"\n    \"labels\": \n      \"severity\": \"warning\"\n  - \"alert\":
-    \"KubeQuotaExceeded\"\n    \"annotations\": \n      \"message\": \"{{ printf \\\"%0.0f\\\"
+    \"KubeQuotaExceeded\"\n    \"annotations\": \n      \"message\": \"{{ printf \\\\"%0.0f\\\\"
     $value }}% usage of {{ $labels.resource }} in namespace {{ $labels.namespace }}.\"\n
     \   \"expr\": |\n      100 * kube_resourcequota{job=\"kube-state-metrics\", type=\"used\"}\n
     \       / ignoring(instance, job, type)\n      kube_resourcequota{job=\"kube-state-metrics\",
@@ -136,7 +136,7 @@ data:
     \"warning\"\n- \"name\": \"kubernetes-storage\"\n  \"rules\": \n  - \"alert\":
     \"KubePersistentVolumeUsageCritical\"\n    \"annotations\": \n      \"message\":
     \"The persistent volume claimed by {{ $labels.persistentvolumeclaim }} in namespace
-    {{ $labels.namespace }} has {{ printf \\\"%0.0f\\\" $value }}% free.\"\n    \"expr\":
+    {{ $labels.namespace }} has {{ printf \\\\"%0.0f\\\\" $value }}% free.\"\n    \"expr\":
     |\n      100 * kubelet_volume_stats_available_bytes{job=\"kubelet\"}\n        /\n
     \     kubelet_volume_stats_capacity_bytes{job=\"kubelet\"}\n        \< 3\n    \"for\":
     \"1m\"\n    \"labels\": \n      \"severity\": \"critical\"\n  - \"alert\": \"KubePersistentVolumeFullInFourDays\"\n
@@ -154,12 +154,12 @@ data:
     by (gitVersion)) > 1\n    \"for\": \"1h\"\n    \"labels\": \n      \"severity\":
     \"warning\"\n  - \"alert\": \"KubeClientErrors\"\n    \"annotations\": \n      \"message\":
     \"Kubernetes API server client '{{ $labels.job }}/{{ $labels.instance }}' is experiencing
-    {{ printf \\\"%0.0f\\\" $value }}% errors.'\"\n    \"expr\": |\n      sum(rate(rest_client_requests_total{code!~\"2..\"}[5m]))
+    {{ printf \\\\"%0.0f\\\\" $value }}% errors.'\"\n    \"expr\": |\n      sum(rate(rest_client_requests_total{code!~\"2..\"}[5m]))
     by (instance, job) * 100\n        /\n      sum(rate(rest_client_requests_total[5m]))
     by (instance, job)\n        > 1\n    \"for\": \"15m\"\n    \"labels\": \n      \"severity\":
     \"warning\"\n  - \"alert\": \"KubeClientErrors\"\n    \"annotations\": \n      \"message\":
     \"Kubernetes API server client '{{ $labels.job }}/{{ $labels.instance }}' is experiencing
-    {{ printf \\\"%0.0f\\\" $value }} errors / sec.'\"\n    \"expr\": |\n      sum(rate(ksm_scrape_error_total{job=\"kube-state-metrics\"}[5m]))
+    {{ printf \\\\"%0.0f\\\\" $value }} errors / sec.'\"\n    \"expr\": |\n      sum(rate(ksm_scrape_error_total{job=\"kube-state-metrics\"}[5m]))
     by (instance, job) > 0.1\n    \"for\": \"15m\"\n    \"labels\": \n      \"severity\":
     \"warning\""
 kind: ConfigMap
