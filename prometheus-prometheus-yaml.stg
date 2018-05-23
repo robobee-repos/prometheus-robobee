@@ -18,10 +18,6 @@
  * vars.prometheus.tolerations[].value
  */
 
-import "_affinities.stg"
-import "_resources.stg"
-import "_tolerations.stg"
-
 /*
  *
  */

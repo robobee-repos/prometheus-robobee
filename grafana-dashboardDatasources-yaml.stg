@@ -1,7 +1,6 @@
 /*
  *
  */
-
 grafana-dashboardDatasources-yaml(parent, vars) ::= <<
 apiVersion: v1
 data:

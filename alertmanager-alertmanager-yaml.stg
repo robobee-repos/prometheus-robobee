@@ -4,14 +4,9 @@
  * vars.alaertManager.replicas
  */
 
-import "_affinities.stg"
-import "_resources.stg"
-import "_tolerations.stg"
-
 /*
  *
  */
-
 alertmanager-alertmanager-yaml(parent, vars) ::= <<
 apiVersion: monitoring.coreos.com/v1
 kind: Alertmanager

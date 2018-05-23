@@ -1,7 +1,6 @@
 /*
  *
  */
-
 kube-state-metrics-service-yaml(parent, vars) ::= <<
 apiVersion: v1
 kind: Service

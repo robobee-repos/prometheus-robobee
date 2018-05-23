@@ -1,7 +1,6 @@
 /*
  *
  */
-
 alertmanager-service-yaml(parent, vars) ::= <<
 apiVersion: v1
 kind: Service

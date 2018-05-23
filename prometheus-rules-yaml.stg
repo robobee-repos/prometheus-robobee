@@ -1,7 +1,6 @@
 /*
  *
  */
-
 prometheus-rules-yaml(parent, vars) ::= <<
 apiVersion: v1
 data:

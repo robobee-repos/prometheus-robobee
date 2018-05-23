@@ -19,9 +19,9 @@
  * vars.kubeStateMetrics.tolerations[].value
  */
 
-import "_affinities.stg"
-import "_resources.stg"
-import "_tolerations.stg"
+import "robobeerun-templates/_affinities.stg"
+import "robobeerun-templates/_resources.stg"
+import "robobeerun-templates/_tolerations.stg"
 
 /*
  *

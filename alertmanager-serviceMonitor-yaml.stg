@@ -1,7 +1,6 @@
 /*
  *
  */
-
 alertmanager-serviceMonitor-yaml(parent, vars) ::= <<
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor

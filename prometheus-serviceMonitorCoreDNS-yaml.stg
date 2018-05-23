@@ -1,7 +1,6 @@
 /*
  *
  */
-
 prometheus-serviceMonitorCoreDNS-yaml(parent, vars) ::= <<
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor

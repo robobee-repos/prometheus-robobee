@@ -1,7 +1,6 @@
 /*
  *
  */
-
 node-exporter-daemonset-yaml(parent, vars) ::= <<
 apiVersion: apps/v1beta2
 kind: DaemonSet

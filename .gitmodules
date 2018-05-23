@@ -1,3 +1,6 @@
 [submodule "prometheus-operator"]
 	path = prometheus-operator
 	url = git@github.com:coreos/prometheus-operator.git
+[submodule "robobeerun-templates"]
+	path = robobeerun-templates
+	url = git@github.com:robobee-repos/robobeerun-templates.git
